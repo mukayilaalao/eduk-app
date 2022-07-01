@@ -23,6 +23,20 @@ function CreateUser() {
 
   const addUser = () => {
     setError("");
+    if (
+      !(
+        user.first_name &&
+        user.last_name &&
+        user.user_name &&
+        user.age &&
+        user.password &&
+        user.email
+      )
+    ) {
+      setError("Please fill out all fields in the form!");
+      setOpen(true);
+      return;
+    }
     axios
       .post(`${API}/auth/sign_up`, user)
       .then(() => {
