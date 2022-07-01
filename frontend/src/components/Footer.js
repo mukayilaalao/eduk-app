@@ -6,9 +6,9 @@ export default function Footer() {
   return (
     <div className="footer-dark">
       <footer>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-6 col-md-3 item">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-6 col-md-3 item">
               <h3>About us</h3>
               <ul>
                 <li>
@@ -23,7 +23,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div class="col-sm-6 col-md-3 item">
+            <div className="col-sm-6 col-md-3 item">
               <h3>Get Involved</h3>
               <ul>
                 <li>
@@ -45,7 +45,7 @@ export default function Footer() {
               <p>New York, NY 1234</p>
             </div>
 
-            <div class="col item social">
+            <div className="col item social">
               <a href="#!" className="fa fa-facebook">
                 {null}
               </a>
@@ -58,7 +58,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <p class="copyright">Copyright EDUK.com 2022. All rights reserved.</p>
+          <p className="copyright">
+            Copyright EDUK.com 2022. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>

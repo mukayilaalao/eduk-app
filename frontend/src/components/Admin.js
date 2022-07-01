@@ -13,12 +13,11 @@ function Admin() {
         <Link to="/admin/users">All Users</Link>
         <Link to="/admin/resources_usage">Resources Usage</Link>
       </div> */}
-      
-      <nav class="navbar navbar-light">
+
+      <nav className="navbar navbar-light">
         <Link to="/admin/pendings">Pending Lists</Link>
         <Link to="/admin/users">All Users</Link>
         <Link to="/admin/resources_usage">Resources Usage</Link>
-
       </nav>
 
       <Outlet />
