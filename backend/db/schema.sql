@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS data_dev;
-CREATE DATABASE data_dev;
+DROP DATABASE IF EXISTS data_center;
+CREATE DATABASE data_center;
 
-\c data_dev;
+\c data_center;
 
 CREATE TABLE mentors(
     mentor_id SERIAL PRIMARY KEY,

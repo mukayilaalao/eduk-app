@@ -2,9 +2,11 @@ const express = require("express");
 // const path = require("path");
 const upload = require("../multer.js");
 const users = express.Router();
-//const resourcesController = require("./resourcesControllers.js");
-//users/1/resources
-//resources/1/users
+//helper function
+const {
+  uppercaseAllLetters,
+  capitalizedFirstLetter,
+} = require("../validation/helper.js");
 //users queries functions
 const {
   updateUser,
@@ -51,7 +53,7 @@ users.get("/:uid", async (req, res) => {
 users.get("/:uid/resources", async (req, res) => {
   const { uid } = req.params;
   const resources = await getAllResources(uid);
-  if (resources[0]) {
+  if (Array.isArray(resources)) {
     res.json({ success: true, result: resources });
   } else res.status(500).json({ error: resources });
 });
@@ -66,14 +68,16 @@ users.get("/:uid/resources/:resource_id", async (req, res) => {
 });
 
 //create a user
-users.post("/", async (req, res) => {
-  const user = req.body;
-  const createdUser = await createUser(user);
-  if (createdUser.uid) {
-    res.json({ success: true, result: createdUser });
-  } else
-    res.status(500).json({ success: false, error: "unable to create user..." });
-});
+// users.post("/", async (req, res) => {
+//   const user = req.body;
+
+//   const createdUser = await createUser(user);
+
+//   if (createdUser.uid) {
+//     res.json({ success: true, result: createdUser });
+//   } else
+//     res.status(500).json({ success: false, error: "unable to create user..." });
+// });
 
 //add uid and resource_id into the join table(user add a resource to his profile)
 users.post("/:uid/resources", async (req, res) => {

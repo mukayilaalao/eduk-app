@@ -5,11 +5,20 @@ const { createUser } = require("../queries/users.js");
 const { authUser } = require("../queries/auth.js");
 const bcrypt = require("bcrypt");
 
+//helper function
+const {
+  uppercaseAllLetters,
+  capitalizedFirstLetter,
+} = require("../validation/helper.js");
+
 //create a auth
 auth.post("/sign_up", async (req, res) => {
   const { password } = req.body;
   const hashedpassword = await bcrypt.hash(password, 10);
   const user = req.body;
+  user.first_name = capitalizedFirstLetter(user.first_name);
+  user.last_name = uppercaseAllLetters(user.last_name);
+
   user.password = hashedpassword;
   //grant admin role to a user
   user.is_admin = user.user_name.toLowerCase() === "administrator";
