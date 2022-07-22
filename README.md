@@ -11,10 +11,10 @@ npm install
 Backend:
 npm install
 
-Heroku (backend):
+Backend deployed on Heroku
 
-https://capstone-g5-pursuit.herokuapp.com/
+Link : https://p-eduk-backend.herokuapp.com/
 
-Netlify (frontend):
+Frontend deployed on Netlify
 
-https://eduk.netlify.app
+Link: https://mk-eduk-app.netlify.app/
