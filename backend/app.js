@@ -1,7 +1,9 @@
 // DEPENDENCIES
 const cors = require("cors");
 const express = require("express");
-// const fileUpload = require("express-fileupload");
+//session middleware
+const session = require("express-session");
+const passport = require("passport");
 const usersController = require("./controllers/usersControllers.js");
 const resourcesController = require("./controllers/resourcesControllers.js");
 const mentorsController = require("./controllers/mentorsControllers.js");
@@ -16,6 +18,22 @@ app.use(cors());
 
 // Parse incoming JSON
 app.use(express.json());
+
+//session config
+app.use(
+  session({
+    secret: "fired and calmed",
+    resave: false,
+    saveUninitialized: true,
+    //store:,
+    cookie: { maxAge: 1000 * 24 * 60 * 60 },
+  })
+);
+
+//passport init and session config
+app.use(passport.initialize());
+app.use(passport.session());
+
 // /users/1/resources
 app.use("/users", usersController);
 
