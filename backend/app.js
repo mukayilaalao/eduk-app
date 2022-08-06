@@ -20,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 
 //session config
+//add the session storage
 app.use(
   session({
     secret: "fired and calmed",
