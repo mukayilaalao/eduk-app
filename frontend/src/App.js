@@ -43,6 +43,8 @@ function App() {
   //   const [owner, setOwner] = useState({});
   //mentors info
   const [mentors, setMentors] = useState([]);
+  //track user login logout
+  const [isLoggeIn, setIsLogIn] = useState(false);
 
   useEffect(() => {
     axios
@@ -66,7 +68,7 @@ function App() {
         <NavBar logText={logText} setLogText={setLogText} />
         <main>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home setLogText={setLogText} />} />
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/resources/:resource_id/" element={<ShowResource />} />
             <Route path="/resources/create" element={<NewResource />} />
@@ -78,8 +80,15 @@ function App() {
 
             <Route
               path="/users/login"
-              element={<LogInUser setLogText={setLogText} mentors={mentors} />}
+              element={
+                <LogInUser
+                  setIsLogIn={setIsLogIn}
+                  setLogText={setLogText}
+                  mentors={mentors}
+                />
+              }
             />
+
             <Route path="/users/:uid/" element={<UserPortal />} />
             <Route path="/users/:uid/upload" element={<Uploader />} />
             <Route path="/about" element={<About />} />

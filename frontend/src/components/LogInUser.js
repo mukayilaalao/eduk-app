@@ -8,7 +8,7 @@ import GeneralShowMessage from "./GeneralShowMessage";
 
 const API = process.env.REACT_APP_API_URL;
 
-function LogInUser({ setLogText, mentors }) {
+function LogInUser({ setLogText, mentors, setIsLogIn }) {
   let navigate = useNavigate();
   const [user, setUser] = useState({
     user_name: "",
@@ -24,6 +24,8 @@ function LogInUser({ setLogText, mentors }) {
       .post(`${API}/auth/login`, user)
       .then((res) => {
         const userId = res.data.result.userId;
+        setLogText("Log Out");
+        setIsLogIn(true);
         navigate(`/users/${userId}`);
       })
       .catch((c) => {

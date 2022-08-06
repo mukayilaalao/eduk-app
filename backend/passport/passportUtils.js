@@ -8,8 +8,12 @@ async function generateHash(pass, saltRounds = 10) {
 
 //is auth function
 function isAuth(req, res, next) {
-  if (req.isAuthenticated()) next();
-  else res.status(401).json({ success: false, message: "Please Login" });
+  //      isAuthenticated
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(401).json({ success: false, message: "Please Login" });
+  }
 }
 
 //decrypting the passwrd

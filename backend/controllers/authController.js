@@ -42,7 +42,7 @@ auth.post(
     failureRedirect: "/login/failure",
   }),
   (req, res) => {
-    res.json({ success: true, result: { userId: req.user.uid } });
+    res.json({ success: true, result: { userId: req.session.passport.user } });
   }
 );
 //login failure
@@ -58,7 +58,7 @@ auth.post("/logout", function (req, res, next) {
       return next(err);
     }
     //we can't redirect to frontend link
-    res.redirect("/");
+    res.json({ success: true });
   });
 });
 
