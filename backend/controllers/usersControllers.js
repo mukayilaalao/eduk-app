@@ -2,6 +2,8 @@ const express = require("express");
 // const path = require("path");
 const upload = require("../multer.js");
 const users = express.Router();
+//auth function
+const { isAuth } = require("../passport/passportUtils.js");
 //helper function
 const {
   uppercaseAllLetters,
@@ -30,13 +32,15 @@ const {
 //get all users  /users/
 users.get("/", async (req, res) => {
   const users = await getAllUsers();
-  if (users[0]) {
+  console.log(users);
+  if (Array.isArray(users)) {
     res.json({ success: true, result: users });
   } else res.status(500).json({ success: false, error: "server error..." });
 });
 
+//authentificate before serving
 //get a User   /users/1
-users.get("/:uid", async (req, res) => {
+users.get("/:uid", isAuth, async (req, res) => {
   const { uid } = req.params;
 
   const user = await getOneUser(uid);
@@ -48,9 +52,10 @@ users.get("/:uid", async (req, res) => {
       .json({ success: false, error: `server error, no user at index ${uid}` });
 });
 
+//authentificate before serving
 //get all resources of a user  /users/1/resources
 
-users.get("/:uid/resources", async (req, res) => {
+users.get("/:uid/resources", isAuth, async (req, res) => {
   const { uid } = req.params;
   const resources = await getAllResources(uid);
   if (Array.isArray(resources)) {
@@ -66,18 +71,6 @@ users.get("/:uid/resources/:resource_id", async (req, res) => {
     res.json({ success: true, result: resource });
   } else res.status(500).json({ success: false, error: resource });
 });
-
-//create a user
-// users.post("/", async (req, res) => {
-//   const user = req.body;
-
-//   const createdUser = await createUser(user);
-
-//   if (createdUser.uid) {
-//     res.json({ success: true, result: createdUser });
-//   } else
-//     res.status(500).json({ success: false, error: "unable to create user..." });
-// });
 
 //add uid and resource_id into the join table(user add a resource to his profile)
 users.post("/:uid/resources", async (req, res) => {

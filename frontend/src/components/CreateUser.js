@@ -38,7 +38,7 @@ function CreateUser() {
       return;
     }
     axios
-      .post(`${API}/auth/sign_up`, user)
+      .post(`${API}/auth/register`, user)
       .then(() => {
         navigate(`/users/login`);
       })
@@ -157,7 +157,7 @@ function CreateUser() {
           />
         </div>
 
-        <button type="text" className="submit">
+        <button type="submit" className="submit">
           Submit
         </button>
       </form>

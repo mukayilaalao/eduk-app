@@ -3,7 +3,14 @@ const cors = require("cors");
 const express = require("express");
 //session middleware
 const session = require("express-session");
+//session storage
+const pgSession = require("connect-pg-simple")(session);
+//db connection
+const db = require("./db/dbConfig.js");
+
 const passport = require("passport");
+
+//controllers
 const usersController = require("./controllers/usersControllers.js");
 const resourcesController = require("./controllers/resourcesControllers.js");
 const mentorsController = require("./controllers/mentorsControllers.js");
@@ -26,7 +33,13 @@ app.use(
     secret: "fired and calmed",
     resave: false,
     saveUninitialized: true,
-    //store:,
+    // session store
+    store: new pgSession({
+      pgPromise: db, // Connection pg-promise
+      // tableName : 'user_sessions'   // if need to use another table-name than the default "session" one
+      // Insert connect-pg-simple options here
+    }),
+
     cookie: { maxAge: 1000 * 24 * 60 * 60 },
   })
 );
