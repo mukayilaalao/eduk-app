@@ -5,10 +5,10 @@ import GeneralShowMessage from "./GeneralShowMessage";
 import "../css/Mentor.css";
 
 const API = process.env.REACT_APP_API_URL;
-function Mentor({ mentor }) {
+function Mentor({ mentor, uid }) {
   const [user, setUser] = useState({});
   const [open, setOpen] = useState(false);
-  const uid = localStorage.getItem("userId");
+
   const navigate = useNavigate();
   // const [showMessage, setShowMessage] = useState(false);
   useEffect(() => {
@@ -24,7 +24,6 @@ function Mentor({ mentor }) {
       .put(`${API}/users/${user.uid}`, user)
       .then((res) => {
         setOpen(true);
-        localStorage.setItem("userMentor", JSON.stringify(mentor));
       })
       .catch((e) => console.log(e));
   };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 function LogOutUser({ setLogText }) {
   return <h1>Thank You for visiting us</h1>;

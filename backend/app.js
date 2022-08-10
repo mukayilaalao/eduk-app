@@ -20,11 +20,24 @@ const owners = require("./controllers/owners");
 // CONFIGURATION
 const app = express();
 
-// MIDDLEWARE
-app.use(cors());
-
 // Parse incoming JSON
 app.use(express.json());
+
+// MIDDLEWARE
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+/**
+ * app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', 'http://127.0.0.1:5501');
+  res.set('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+ */
 
 //session config
 //add the session storage

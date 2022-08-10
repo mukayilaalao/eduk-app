@@ -44,7 +44,7 @@ function App() {
   //mentors info
   const [mentors, setMentors] = useState([]);
   //track user login logout
-  const [isLoggeIn, setIsLogIn] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
     axios
@@ -59,18 +59,24 @@ function App() {
         console.log(error);
       });
   }, []);
-  const [logText, setLogText] = useState(
-    localStorage.getItem("userId") ? "Log Out" : "Log In"
-  );
+  const [logText, setLogText] = useState("Log In");
   return (
     <div className="App">
       <Router>
-        <NavBar logText={logText} setLogText={setLogText} />
+        <NavBar
+          logText={logText}
+          setLogText={setLogText}
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+        />
         <main>
           <Routes>
             <Route path="/" element={<Home setLogText={setLogText} />} />
             <Route path="/resources" element={<ResourcesPage />} />
-            <Route path="/resources/:resource_id/" element={<ShowResource />} />
+            <Route
+              path="/resources/:resource_id/"
+              element={<ShowResource userId={userInfo.userId} />}
+            />
             <Route path="/resources/create" element={<NewResource />} />
             <Route path="admin" element={<AdminPage />}>
               <Route path="Resources_Usage" element={<ResourcesUsagePage />} />
@@ -82,7 +88,7 @@ function App() {
               path="/users/login"
               element={
                 <LogInUser
-                  setIsLogIn={setIsLogIn}
+                  setUserInfo={setUserInfo}
                   setLogText={setLogText}
                   mentors={mentors}
                 />
@@ -101,7 +107,7 @@ function App() {
             />
             <Route
               path="/mentors"
-              element={<MentorsPage mentors={mentors} />}
+              element={<MentorsPage mentors={mentors} uid={userInfo.userId} />}
             />
             <Route path="/mentors/:mentor_id/upload" element={<Uploader />} />
             <Route path="/mentors/create" element={<NewMentor />} />

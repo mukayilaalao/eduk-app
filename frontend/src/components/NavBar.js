@@ -6,7 +6,7 @@ import logo from "../images/logo.png";
 // hamburger
 import Burger from "./Burger.js";
 
-export default function NavBar({ logText, setLogText }) {
+export default function NavBar({ logText, setLogText, userInfo, setUserInfo }) {
   return (
     <nav>
       <div>
@@ -14,7 +14,12 @@ export default function NavBar({ logText, setLogText }) {
           <img className="logoimg" src={logo} alt="logo" />
         </Link>
       </div>
-      <Burger logText={logText} setLogText={setLogText} />
+      <Burger
+        logText={logText}
+        setLogText={setLogText}
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+      />
     </nav>
   );
 }

@@ -8,7 +8,7 @@ import GeneralShowMessage from "./GeneralShowMessage";
 
 const API = process.env.REACT_APP_API_URL;
 
-function LogInUser({ setLogText, mentors, setIsLogIn }) {
+function LogInUser({ setLogText, mentors, setUserInfo }) {
   let navigate = useNavigate();
   const [user, setUser] = useState({
     user_name: "",
@@ -21,11 +21,11 @@ function LogInUser({ setLogText, mentors, setIsLogIn }) {
   const logIn = () => {
     setError("");
     axios
-      .post(`${API}/auth/login`, user)
+      .post(`${API}/auth/login`, user, { withCredentials: true })
       .then((res) => {
         const userId = res.data.result.userId;
         setLogText("Log Out");
-        setIsLogIn(true);
+        setUserInfo(res.data.result);
         navigate(`/users/${userId}`);
       })
       .catch((c) => {

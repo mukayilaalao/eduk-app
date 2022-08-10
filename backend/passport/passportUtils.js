@@ -9,6 +9,7 @@ async function generateHash(pass, saltRounds = 10) {
 //is auth function
 function isAuth(req, res, next) {
   //      isAuthenticated
+
   if (req.isAuthenticated()) {
     next();
   } else {

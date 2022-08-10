@@ -9,7 +9,7 @@ import GeneralShowMessage from "./GeneralShowMessage";
 
 const API = process.env.REACT_APP_API_URL;
 
-function ResourceDetails() {
+function ResourceDetails({ userId }) {
   const [resource, setResource] = useState([]);
   //show message after adding a resource
   // const [showMessage, setShowMessage] = useState(false);
@@ -18,8 +18,6 @@ function ResourceDetails() {
   let { resource_id } = useParams();
   //message
   const [open, setOpen] = useState(false);
-
-  let userId = localStorage.getItem("userId");
 
   useEffect(() => {
     axios
@@ -35,10 +33,14 @@ function ResourceDetails() {
   // adding the resource to the particular user
   const addResource = () => {
     axios
-      .post(`${API}/users/${userId}/resources`, {
-        uid: userId,
-        resource_id: resource_id,
-      })
+      .post(
+        `${API}/users/${userId}/resources`,
+        {
+          uid: userId,
+          resource_id: resource_id,
+        },
+        { withCredentials: true }
+      )
       .then(() => setOpen(true))
       .catch((error) => {
         if (error.response) {

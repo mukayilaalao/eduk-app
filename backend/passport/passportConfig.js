@@ -1,5 +1,5 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 const db = require("../db/dbConfig.js");
 const bcrypt = require("bcrypt");
 
@@ -39,9 +39,9 @@ passport.serializeUser(function (user, done) {
   done(null, user.uid);
 });
 //attach the correct user to the req obj
-passport.deserializeUser(function (userId, done) {
+passport.deserializeUser(async function (userId, done) {
   console.log("run deserializer");
-  User.findById(userId, function (err, user) {
-    done(err, user);
-  });
+  const user = await db.one("SELECT * FROM users WHERE uid=$1", userId);
+  if (user.uid) done(null, user);
+  else done(user, null);
 });

@@ -1,10 +1,11 @@
 import React from "react";
 import Dropdown from "./Dropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import axios from "axios";
 
 const Ul = styled.ul`
   @media (max-width: 768px) {
@@ -22,6 +23,7 @@ const Ul = styled.ul`
   }
 `;
 
+const API = process.env.REACT_APP_API_URL;
 export default function RightNav({
   open,
   setOpen,
@@ -34,16 +36,23 @@ export default function RightNav({
   dropdown,
   onMouseClick,
   onMouseUnclick,
+  userInfo,
+  setUserInfo,
 }) {
+  const navigate = useNavigate();
+
+  //log out the user
   const logOut = () => {
-    localStorage.clear();
-    setLogText("Log In");
+    axios
+      .get(`${API}/auth/logout`, { withCredentials: true })
+      .then(() => {
+        console.log("run logout func");
+        setLogText("Log In");
+        setUserInfo({ ...userInfo, isLogin: false });
+        navigate("/");
+      })
+      .catch((e) => console.log(e));
   };
-
-  const userId = localStorage.getItem("userId");
-
-  //user data from local storage
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <Ul open={open} className="navLinks">
@@ -75,9 +84,9 @@ export default function RightNav({
         <Link to="/about">About</Link>
       </li>
 
-      {!userInfo ? (
+      {!Object.keys(userInfo).length ? (
         ""
-      ) : userInfo.is_admin && !isNaN(userId) ? (
+      ) : userInfo.isAdmin ? (
         <li
           onClick={() => {
             toggleOpen();
@@ -95,7 +104,7 @@ export default function RightNav({
           }}
           className="eachLi mainLi"
         >
-          <Link to={`/users/${userId}`}>Dashboard</Link>
+          <Link to={`/users/${userInfo.userId}`}>Dashboard</Link>
         </li>
       )}
 
@@ -106,7 +115,7 @@ export default function RightNav({
         }}
         className="eachLi mainLi"
       >
-        {isLogIn ? (
+        {userInfo.isLogin ? (
           <Link to="/mentors">Mentors</Link>
         ) : (
           <Link to="/mentors/create">Mentors</Link>
@@ -119,12 +128,10 @@ export default function RightNav({
         }}
         className="loginIcon"
       >
-        {isLogIn ? (
-          <Link to="/">
-            <Button variant="outlined" size="medium" onClick={logOut}>
-              {logText}
-            </Button>
-          </Link>
+        {userInfo.isLogin ? (
+          <Button variant="outlined" size="medium" onClick={logOut}>
+            {logText}
+          </Button>
         ) : (
           <Link to="/users/login">
             <Button

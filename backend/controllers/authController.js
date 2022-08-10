@@ -42,7 +42,15 @@ auth.post(
     failureRedirect: "/login/failure",
   }),
   (req, res) => {
-    res.json({ success: true, result: { userId: req.session.passport.user } });
+    // console.log(req);
+    res.json({
+      success: true,
+      result: {
+        isAdmin: false,
+        isLogin: true,
+        userId: req.session.passport.user,
+      },
+    });
   }
 );
 //login failure
@@ -52,7 +60,7 @@ auth.post("/login/failure", (req, res) => {
     .json({ success: false, message: "Username or Password Incorrect" });
 });
 // //logout
-auth.post("/logout", function (req, res, next) {
+auth.get("/logout", function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
