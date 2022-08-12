@@ -31,18 +31,19 @@ auth.post("/register", async (req, res, next) => {
     //we can't redirect to frontend
     return res.json({ success: true, isRegistered: true });
   }
-  return res.status(501).json({ success: false, isRegistered: false });
+  return res.status(501).json({
+    success: false,
+    error: "Error while trying to create your account.",
+  });
 });
 
 // //login
 auth.post(
   "/login",
-  passport.authenticate("local", {
-    //we can't redirect to frontend link
-    failureRedirect: "/login/failure",
-  }),
+  //we can't redirect to frontend link so failure and successRedirect are not useful
+  passport.authenticate("local"),
   (req, res) => {
-    // console.log(req);
+    console.log("passed the login");
     res.json({
       success: true,
       result: {
@@ -53,12 +54,7 @@ auth.post(
     });
   }
 );
-//login failure
-auth.post("/login/failure", (req, res) => {
-  res
-    .statusCode(401)
-    .json({ success: false, message: "Username or Password Incorrect" });
-});
+
 // //logout
 auth.get("/logout", function (req, res, next) {
   req.logout(function (err) {

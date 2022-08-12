@@ -32,7 +32,7 @@ const {
 //get all users  /users/
 users.get("/", async (req, res) => {
   const users = await getAllUsers();
-  console.log(users);
+
   if (Array.isArray(users)) {
     res.json({ success: true, result: users });
   } else res.status(500).json({ success: false, error: "server error..." });
@@ -40,9 +40,9 @@ users.get("/", async (req, res) => {
 
 //authentificate before serving
 //get a User   /users/1
-users.get("/:uid", async (req, res) => {
+users.get("/:uid", isAuth, async (req, res) => {
   const { uid } = req.params;
-  // console.log(req.session);
+
   const user = await getOneUser(uid);
   if (user.uid) {
     res.json({ success: true, result: user });
@@ -55,7 +55,7 @@ users.get("/:uid", async (req, res) => {
 //authentificate before serving
 //get all resources of a user  /users/1/resources
 
-users.get("/:uid/resources", async (req, res) => {
+users.get("/:uid/resources", isAuth, async (req, res) => {
   const { uid } = req.params;
   const resources = await getAllResources(uid);
   if (Array.isArray(resources)) {

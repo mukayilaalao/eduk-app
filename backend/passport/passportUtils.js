@@ -1,5 +1,6 @@
 //hashing function
 const bcrypt = require("bcrypt");
+
 async function generateHash(pass, saltRounds = 10) {
   const salt = await bcrypt.genSalt(saltRounds);
   const hash = await bcrypt.hash(pass, salt);
@@ -13,7 +14,8 @@ function isAuth(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.status(401).json({ success: false, message: "Please Login" });
+    // console.log("Fail the login");
+    res.status(401).json({ success: false, error: "Please Login" });
   }
 }
 

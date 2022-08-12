@@ -29,10 +29,9 @@ function LogInUser({ setLogText, mentors, setUserInfo }) {
         navigate(`/users/${userId}`);
       })
       .catch((c) => {
-        if (c.response && c.response.data) {
-          setError(c.response.data.message);
-          setOpen(true);
-        }
+        // console.log(c);
+        setError("Unauthorized, wrong username or password.");
+        setOpen(true);
       });
   };
 
