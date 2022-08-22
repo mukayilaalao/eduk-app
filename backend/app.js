@@ -27,7 +27,7 @@ app.use(express.json());
 // MIDDLEWARE
 app.use(
   cors({
-    origin: process.env.BACKEND_CORS_URL,
+    origin: process.env.BACKEND_CORS,
     credentials: true,
   })
 );
