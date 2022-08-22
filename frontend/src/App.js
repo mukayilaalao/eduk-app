@@ -45,7 +45,9 @@ function App() {
   const [mentors, setMentors] = useState([]);
   //track user login logout
   const [userInfo, setUserInfo] = useState({});
-  const [logText, setLogText] = useState("LOG IN");
+  const [logText, setLogText] = useState(
+    userInfo.isLogin ? "LOG OUT" : "LOG IN"
+  );
 
   useEffect(() => {
     axios
@@ -64,12 +66,13 @@ function App() {
     axios
       .get(API + "/auth/login", { withCredentials: true })
       .then((res) => {
-        setUserInfo({ ...userInfo, ...res.data });
         setLogText("LOG OUT");
+        console.log(res.data);
+        setUserInfo({ ...userInfo, ...res.data });
       })
       .catch((e) => {
-        setUserInfo({ ...userInfo, isLogin: false });
         setLogText("LOG IN");
+        setUserInfo({ ...userInfo, isLogin: false });
       });
   }, []);
 
