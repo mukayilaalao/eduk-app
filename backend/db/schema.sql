@@ -28,6 +28,7 @@ CREATE TABLE users(
     user_image TEXT DEFAULT NULL
 
 );
+--users profile table
 
 --resources
 CREATE TABLE resources(

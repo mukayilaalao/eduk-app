@@ -46,8 +46,8 @@ export default function RightNav({
     axios
       .get(`${API}/auth/logout`, { withCredentials: true })
       .then(() => {
-        console.log("run logout func");
-        setLogText("Log In");
+        // console.log("run logout func");
+        setLogText("LOG IN");
         setUserInfo({ ...userInfo, isLogin: false });
         navigate("/");
       })

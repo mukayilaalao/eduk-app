@@ -7,6 +7,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 //generate hash fuuction
 const { generateHash } = require("../passport/passportUtils");
+const { keepLogin } = require("../passport/keepLogin.js");
 
 //helper function
 const {
@@ -24,7 +25,7 @@ auth.post("/register", async (req, res, next) => {
   userInfo.password = await generateHash(userInfo.password);
 
   const user = await createUser(userInfo);
-  console.log(userInfo);
+  // console.log(userInfo);
 
   // console.log(user);
   if (user.uid) {
@@ -37,13 +38,18 @@ auth.post("/register", async (req, res, next) => {
   });
 });
 
+//Run after refreshing the page
+auth.get("/login", keepLogin, (req, res) => {
+  res.json({ success: true, isLogin: true });
+});
+
 // //login
 auth.post(
   "/login",
   //we can't redirect to frontend link so failure and successRedirect are not useful
   passport.authenticate("local"),
   (req, res) => {
-    console.log("passed the login");
+    // console.log("passed the login");
     res.json({
       success: true,
       result: {
