@@ -19,6 +19,7 @@ const owners = require("./controllers/owners");
 
 // CONFIGURATION
 const app = express();
+require("dotenv").config();
 
 // Parse incoming JSON
 app.use(express.json());
@@ -26,7 +27,7 @@ app.use(express.json());
 // MIDDLEWARE
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.BACKEND_CORS_URL,
     credentials: true,
   })
 );
@@ -76,8 +77,6 @@ app.use("/owners", owners);
 //multer
 // console.log("underscoredirname", __dirname + "/uploads");
 app.use(express.static(__dirname + "/uploads"));
-
-require("dotenv").config();
 
 app.get("/", (req, res) => {
   res.send("Welcome To EDUK App");

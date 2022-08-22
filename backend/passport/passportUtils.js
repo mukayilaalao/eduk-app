@@ -10,8 +10,9 @@ async function generateHash(pass, saltRounds = 10) {
 //is auth function
 function isAuth(req, res, next) {
   //      isAuthenticated
-
-  if (req.isAuthenticated()) {
+  const { uid } = req.params;
+  //making sure a user can't see another user profile
+  if (uid == req.user.uid && req.isAuthenticated()) {
     next();
   } else {
     // console.log("Fail the login");
