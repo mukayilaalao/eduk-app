@@ -12,7 +12,7 @@ function isAuth(req, res, next) {
   try {
     const { uid } = req.params;
     //making sure a user can't see another user profile
-    if (Number(uid) === req.user.uid && req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
       next();
     } else {
       res.status(401).json({ success: false, error: "Please Login" });
