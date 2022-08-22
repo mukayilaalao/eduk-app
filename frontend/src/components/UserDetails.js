@@ -29,7 +29,7 @@ function UserDetails() {
   //handle remove a resource from user profile
   const removeResource = (rid) => {
     axios
-      .delete(`${API}/users/${uid}/resources/${rid}`)
+      .delete(`${API}/users/${uid}/resources/${rid}`, { withCredentials: true })
       .then((res) => {
         const newResources = userResources.filter(
           (el) => el.resource_id !== rid

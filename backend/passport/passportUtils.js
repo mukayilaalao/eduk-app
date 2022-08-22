@@ -14,6 +14,8 @@ function isAuth(req, res, next) {
     //making sure a user can't see another user profile
     if (Number(uid) === req.user.uid && req.isAuthenticated()) {
       next();
+    } else {
+      res.status(401).json({ success: false, error: "Please Login" });
     }
   } catch (error) {
     res.status(401).json({ success: false, error: "Please Login" });
