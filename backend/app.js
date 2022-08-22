@@ -32,12 +32,6 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.set("Access-Control-Allow-Origin", `${process.env.BACKEND_CORS}`);
-  res.set("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
 //session config
 //add the session storage
 app.use(
@@ -59,6 +53,12 @@ app.use(
 //passport init and session config
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", `${process.env.BACKEND_CORS}`);
+  res.set("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 // /users/1/resources
 app.use("/users", usersController);

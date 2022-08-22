@@ -84,7 +84,7 @@ export default function RightNav({
         <Link to="/about">About</Link>
       </li>
 
-      {!Object.keys(userInfo).length ? (
+      {!userInfo.isLogin ? (
         ""
       ) : userInfo.isAdmin ? (
         <li
