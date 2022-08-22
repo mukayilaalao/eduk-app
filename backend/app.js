@@ -25,18 +25,18 @@ require("dotenv").config();
 app.use(express.json());
 
 // MIDDLEWARE
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.BACKEND_CORS,
+    credentials: true,
+  })
+);
 
-// origin: process.env.BACKEND_CORS,
-// credentials: true,
-
-/**
- * app.use((req, res, next) => {
-  res.set('Access-Control-Allow-Origin', 'http://127.0.0.1:5501');
-  res.set('Access-Control-Allow-Credentials', 'true');
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", `${process.env.BACKEND_CORS}`);
+  res.set("Access-Control-Allow-Credentials", "true");
   next();
 });
- */
 
 //session config
 //add the session storage

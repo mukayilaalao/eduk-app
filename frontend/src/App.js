@@ -62,9 +62,9 @@ function App() {
 
     //keep user login
     axios
-      .get(API + "/auth/login")
+      .get(API + "/auth/login", { withCredentials: true })
       .then((res) => {
-        setUserInfo({ ...userInfo, isLogin: true });
+        setUserInfo({ ...userInfo, ...res.data });
         setLogText("LOG OUT");
       })
       .catch((e) => {

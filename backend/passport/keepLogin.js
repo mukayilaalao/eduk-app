@@ -1,6 +1,6 @@
 function keepLogin(req, res, next) {
   if (req.isAuthenticated()) {
-    next();
+    return next();
   }
   return res.json({ success: false, isLogin: false });
 }

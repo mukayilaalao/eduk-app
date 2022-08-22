@@ -21,7 +21,7 @@ function LogInUser({ setLogText, mentors, setUserInfo }) {
   const logIn = () => {
     setError("");
     axios
-      .post(`${API}/auth/login`, user)
+      .post(`${API}/auth/login`, user, { withCredentials: true })
       .then((res) => {
         const userId = res.data.result.userId;
         setLogText("Log Out");

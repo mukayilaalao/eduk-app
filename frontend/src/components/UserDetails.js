@@ -44,7 +44,7 @@ function UserDetails() {
 
   useEffect(() => {
     axios
-      .get(API + "/users/" + uid)
+      .get(API + "/users/" + uid, { withCredentials: true })
       .then((response) => {
         setUser(response.data.result);
       })
@@ -54,7 +54,7 @@ function UserDetails() {
       });
 
     axios
-      .get(API + "/users/" + uid + "/resources")
+      .get(API + "/users/" + uid + "/resources", { withCredentials: true })
       .then((response) => {
         setUserResources(response.data.result);
       })

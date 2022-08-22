@@ -40,7 +40,7 @@ auth.post("/register", async (req, res, next) => {
 
 //Run after refreshing the page
 auth.get("/login", keepLogin, (req, res) => {
-  res.json({ success: true, isLogin: true });
+  res.json({ success: true, isLogin: true, userId: req.user.uid });
 });
 
 // //login
@@ -62,12 +62,13 @@ auth.post(
 );
 
 // //logout
-auth.get("/logout", function (req, res, next) {
+auth.get("/logout", function (req, res) {
   req.logout(function (err) {
     if (err) {
       return next(err);
     }
     //we can't redirect to frontend link
+
     res.json({ success: true });
   });
 });
