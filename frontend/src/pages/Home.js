@@ -1,7 +1,7 @@
 import React from "react";
 import Background from "../images/home.jpg";
 import { Link } from "react-router-dom";
-import LogOutUser from "../components/LogOutUser";
+// import LogOutUser from "../components/LogOutUser";
 
 const HorizontalRule = ({ color }) => (
   <hr
@@ -17,7 +17,7 @@ const HorizontalRule = ({ color }) => (
 function Home() {
   return (
     <div className="Home">
-      <LogOutUser />
+      {/* <LogOutUser /> */}
       <div className="Hero" style={{ backgroundImage: `url(${Background})` }}>
         <div className="Hero-text">
           <h1>
