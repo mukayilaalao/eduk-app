@@ -46,7 +46,7 @@ app.use(
       // Insert connect-pg-simple options here
     }),
 
-    cookie: { maxAge: 1000 * 24 * 60 * 60 },
+    cookie: { maxAge: 1000 * 24 * 60 * 60, sameSite: "none", secure: true },
   })
 );
 
