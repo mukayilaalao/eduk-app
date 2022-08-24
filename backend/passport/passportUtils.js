@@ -9,10 +9,12 @@ async function generateHash(pass, saltRounds = 10) {
 
 //is auth function
 function isAuth(req, res, next) {
+  console.log(req.session.passport.user);
+  console.log("user", req.user);
   try {
     const { uid } = req.params;
     //making sure a user can't see another user profile
-    if (Number(uid) === req.session.passport.user && req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
       next();
     } else {
       res.status(401).json({ success: false, error: "Please Login" });

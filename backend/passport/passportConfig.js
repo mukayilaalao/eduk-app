@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 //verify function
 
 async function verify(user_name, password, done) {
-  //   console.log("run verify");
+  // console.log("run verify");
   //check if the user exist
   const user = await db.one(
     "SELECT * FROM users WHERE user_name=$1",
@@ -35,12 +35,12 @@ passport.use(strategy);
 
 //attach user id to the session
 passport.serializeUser(function (user, done) {
-  //   console.log("run serializer");
+  // console.log("run serializer");
   done(null, user.uid);
 });
 //attach the correct user to the req obj
 passport.deserializeUser(async function (userId, done) {
-  //   console.log("run deserializer");
+  // console.log("run deserializer");
   const user = await db.one("SELECT * FROM users WHERE uid=$1", userId);
   if (user.uid) done(null, user);
   else done(user, null);
