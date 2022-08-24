@@ -36,7 +36,7 @@ app.use(
 //add the session storage
 app.use(
   session({
-    secret: "fired and calmed",
+    secret: `${process.env.SECRET_SESSION}`,
     resave: false,
     saveUninitialized: true,
     // session store

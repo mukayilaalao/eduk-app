@@ -40,7 +40,11 @@ auth.post("/register", async (req, res, next) => {
 
 //Run after refreshing the page
 auth.get("/login", keepLogin, (req, res) => {
-  res.json({ success: true, isLogin: true, userId: req.user.uid });
+  res.json({
+    success: true,
+    isLogin: true,
+    userId: req.session.passport.userd,
+  });
 });
 
 // //login
