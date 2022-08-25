@@ -46,7 +46,12 @@ app.use(
       // Insert connect-pg-simple options here
     }),
 
-    cookie: { maxAge: 1000 * 24 * 60 * 60, sameSite: "none", secure: true },
+    cookie: {
+      maxAge: 1000 * 24 * 60 * 60,
+      sameSite: "none",
+      secure: true,
+      // domain: process.env.DOMAIN,
+    },
   })
 );
 
@@ -54,9 +59,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  res.set("Access-Control-Allow-Origin", `${process.env.BACKEND_CORS}`);
-  res.set("Access-Control-Allow-Credentials", "true");
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", `${process.env.BACKEND_CORS}`);
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 

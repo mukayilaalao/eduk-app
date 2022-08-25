@@ -9,8 +9,8 @@ async function generateHash(pass, saltRounds = 10) {
 
 //is auth function
 function isAuth(req, res, next) {
-  console.log(req.session.passport.user);
-  console.log("user", req.user);
+  // console.log(req.session.passport.user);
+  // console.log("user", req.user);
   try {
     const { uid } = req.params;
     //making sure a user can't see another user profile
