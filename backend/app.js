@@ -48,7 +48,7 @@ app.use(
 
     cookie: {
       maxAge: 1000 * 24 * 60 * 60,
-      domain: process.env.DOMAIN,
+      secure: true,
     },
   })
 );
