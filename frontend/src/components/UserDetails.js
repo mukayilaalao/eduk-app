@@ -12,9 +12,10 @@ import UserResource from "./UserResource";
 const API = process.env.REACT_APP_API_URL;
 // const userId = localStorage.getItem("userId");
 
-function UserDetails() {
+function UserDetails({ mentor }) {
   const [user, setUser] = useState({});
   const [userResources, setUserResources] = useState([]);
+  // const [mentor, setMentor] = useState("");
   //show Message
   // const [showMessage, setShowMessage] = useState(false);
 
@@ -24,7 +25,7 @@ function UserDetails() {
   let navigate = useNavigate();
 
   //mentor info
-  const mentor = JSON.parse(localStorage.getItem("userMentor"));
+  // const mentor = JSON.parse(localStorage.getItem("userMentor"));
 
   //handle remove a resource from user profile
   const removeResource = (rid) => {

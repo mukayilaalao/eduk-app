@@ -13,7 +13,7 @@ function AllUsers() {
 
   useEffect(() => {
     axios
-      .get(API + "/users")
+      .get(API + "/users", { withCredentials: true })
       .then((response) => {
         setUsers(response.data.result);
       })

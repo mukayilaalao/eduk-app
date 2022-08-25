@@ -2,11 +2,15 @@ import AllMentors from "../components/AllMentors.js";
 import React from "react";
 import CreateMentor from "../components/CreateMentor.js";
 
-function MentorsPage({ mentors, uid }) {
+function MentorsPage({ mentors, userInfo, setUserInfo }) {
   return (
     <div>
-      {uid && !isNaN(uid) ? (
-        <AllMentors mentors={mentors} uid={uid} />
+      {userInfo.userId && !isNaN(userInfo.userId) ? (
+        <AllMentors
+          mentors={mentors}
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+        />
       ) : (
         <CreateMentor />
       )}

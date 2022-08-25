@@ -43,7 +43,8 @@ auth.get("/login", keepLogin, (req, res) => {
   res.json({
     success: true,
     isLogin: true,
-    userId: req.session.passport.userd,
+    userId: req.session.passport.user,
+    mentor_id: req.user.mentor_id,
   });
 });
 

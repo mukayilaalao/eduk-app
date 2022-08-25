@@ -1,3 +1,5 @@
+//NOT IN USE -> USING PASSPORT JS FOR USER AUTH
+
 const db = require("../db/dbConfig.js");
 const bcrypt = require("bcrypt");
 

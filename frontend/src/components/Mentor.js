@@ -5,7 +5,7 @@ import GeneralShowMessage from "./GeneralShowMessage";
 import "../css/Mentor.css";
 
 const API = process.env.REACT_APP_API_URL;
-function Mentor({ mentor, uid }) {
+function Mentor({ mentor, userInfo, setUserInfo }) {
   const [user, setUser] = useState({});
   const [open, setOpen] = useState(false);
 
@@ -13,15 +13,18 @@ function Mentor({ mentor, uid }) {
   // const [showMessage, setShowMessage] = useState(false);
   useEffect(() => {
     axios
-      .get(`${API}/users/${uid}`)
+      .get(`${API}/users/${userInfo.userId}`, { withCredentials: true })
       .then((res) => setUser(res.data.result))
       .catch((e) => console.log(e));
-  }, [uid]);
+  }, [userInfo.userId]);
 
   const addMentor = (mentor) => {
     user.mentor_id = mentor.mentor_id;
+    setUserInfo({ ...userInfo, mentor_id: mentor.mentor_id });
     axios
-      .put(`${API}/users/${user.uid}`, user)
+      .put(`${API}/users/${userInfo.userId}`, user, {
+        withCredentials: true,
+      })
       .then((res) => {
         setOpen(true);
       })

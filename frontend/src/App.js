@@ -43,6 +43,7 @@ function App() {
   //   const [owner, setOwner] = useState({});
   //mentors info
   const [mentors, setMentors] = useState([]);
+  const [userMentor, setUserMentor] = useState("");
   //track user login logout
   const [userInfo, setUserInfo] = useState({});
   const [logText, setLogText] = useState(
@@ -76,6 +77,12 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    if (userInfo.userId) {
+      let mentor = mentors.find((men) => men.mentor_id === userInfo.mentor_id);
+      setUserMentor({ ...userMentor, ...mentor });
+    }
+  }, [userInfo]);
   return (
     <div className="App">
       <Router>
@@ -111,7 +118,10 @@ function App() {
               }
             />
 
-            <Route path="/users/:uid/" element={<UserPortal />} />
+            <Route
+              path="/users/:uid/"
+              element={<UserPortal mentor={userMentor} />}
+            />
             <Route path="/users/:uid/upload" element={<Uploader />} />
             <Route path="/about" element={<About />} />
             <Route path="/users/create" element={<CreateUser />} />
@@ -123,7 +133,13 @@ function App() {
             />
             <Route
               path="/mentors"
-              element={<MentorsPage mentors={mentors} uid={userInfo.userId} />}
+              element={
+                <MentorsPage
+                  mentors={mentors}
+                  userInfo={userInfo}
+                  setUserInfo={setUserInfo}
+                />
+              }
             />
             <Route path="/mentors/:mentor_id/upload" element={<Uploader />} />
             <Route path="/mentors/create" element={<NewMentor />} />

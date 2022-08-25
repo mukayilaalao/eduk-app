@@ -7,7 +7,9 @@ function ResourceUsage({ resource }) {
   const [resourceUsersN, setResourceUsersN] = useState(0);
   useEffect(() => {
     axios
-      .get(`${API}/resources/${resource.resource_id}/users`)
+      .get(`${API}/resources/${resource.resource_id}/users`, {
+        withCredentials: true,
+      })
       .then((res) => setResourceUsersN(res.data.result.length))
       .catch((e) => console.log(e));
   }, [resource.resource_id]);

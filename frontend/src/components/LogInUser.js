@@ -8,7 +8,7 @@ import GeneralShowMessage from "./GeneralShowMessage";
 
 const API = process.env.REACT_APP_API_URL;
 
-function LogInUser({ setLogText, mentors, setUserInfo }) {
+function LogInUser({ setLogText, setUserInfo }) {
   let navigate = useNavigate();
   const [user, setUser] = useState({
     user_name: "",

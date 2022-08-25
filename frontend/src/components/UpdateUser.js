@@ -12,7 +12,7 @@ function UpdateUser() {
 
   useEffect(() => {
     axios
-      .get(`${API}.users/${index}`)
+      .get(`${API}.users/${index}`, { withCredentials: true })
       .then((res) => {
         setUser(res.data);
       })
@@ -22,13 +22,13 @@ function UpdateUser() {
   }, [index]);
 
   const handleTextChange = (event) => {
-    setUser({ ...user, [event.target.uid]: event.taget.value });
+    setUser({ ...user, [event.target.id]: event.taget.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .put(`${API}/users/${index}`, user)
+      .put(`${API}/users/${index}`, user, { withCredentials: true })
       .then(() => {
         navigate("/users");
       })

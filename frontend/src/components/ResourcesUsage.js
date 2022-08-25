@@ -24,7 +24,9 @@ function ResourcesUsage() {
     };
     for (let res of resources) {
       axios
-        .get(`${API}/resources/${res.resource_id}/users`)
+        .get(`${API}/resources/${res.resource_id}/users`, {
+          withCredentials: true,
+        })
         .then((response) => {
           if (response.data.result.length > famousResource.nbr) {
             famousResource.resource_name = res.resource_name;
